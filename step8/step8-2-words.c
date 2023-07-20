@@ -5,83 +5,67 @@
 
 /*
  * Name : <Zhang Wei>
- * Program to experiment with character arrays
+ * Program to experiment with hexadecimal
+ * and pointers
  */
 
-#define MaxWord 20
+#define NumMovies 10
+#define MaxGrosses 5
 
-int main ()
+int main()
 {
-    char c;
-    char str[MaxWord+1];
-    char longestWord[MaxWord+1];
-    int sumLength = 0;
-    int wordCount = 0;
-    int longestLength = 0;
-    int len = 0;
 
-    puts ("Enter text. Include a dot ('.') to end a sentence to exit:");
-    do
+    double gross[NumMovies] = {4633070, 3856195, 3171189, 1877685, 3251622,
+                               3156594, 1629735, 2659234, 2028036, 510768};
+    char *names[NumMovies] = {"Hall Pass", "Unknown", "I Am Number Four", "The King's Speech",
+                              "Just Go With It", "Gnomeo and Juliet", "Drive Angry",
+                              "Justin Beiber: Never Say Never", "Big Mommas: Like Father, Like Son",
+                              "True Grit"};
+    double sum;
+    int i;
+
+    sum = 0;        /* Initialize to zero */
+    for(i = 0;  i<NumMovies;  i++)
     {
-        c=getchar();
+        printf("Movie %2d %33s: %.0f\n", i+1, names[i], gross[i]);
+        sum += gross[i];
+    }
+    printf("Total gross for these films was $%.0f\n", sum);
 
-        if(c != ' ' && c != '.')
+    int highestGrossIndex = 0;
+    double highestGross = 0;
+
+    for(i=0;  i<NumMovies;  i++)
+    {
+        if(gross[i] > highestGross)
         {
-            /* This is a character of a word */
-            /* Only save it if we have space */
-            if(len < MaxWord)
-            {
-                str[len] = c;
-                len++;
+            highestGrossIndex = i;
+            highestGross = gross[highestGrossIndex];
+        }
+    }
+
+    printf("The highest grossing film is: %s\n", names[highestGrossIndex]);
+
+    double maxGross[MaxGrosses] = {500000, 1000000, 2000000, 4000000, 10000000};
+
+    int j, highestValueIndex;
+
+
+    for (int i = 0; i < MaxGrosses; i++) {
+        double highestValue;
+        highestValue = 0;
+        for (int j = 0; j < NumMovies; j++) {
+            if (gross[j] < maxGross[i] && gross[j] > highestValue) {
+                highestValue = gross[j];
+                highestValueIndex = j;
             }
         }
-        else
-        {
-            while (c == ' ') {
-                c=getchar();
-            }
 
-            /*if (c == '.') {
-
-                break;
-            } else {
-                str[len] = 0;
-                printf("%s\n", str);
-
-            }*/
-
-            /* The word is done */
-            str[len] = 0;
-            printf("%s\n", str);
-
-            /* Compute The relative length of  words */
-            sumLength += len;
-            wordCount++;
-
-            if (len > longestLength) {
-                longestLength = len;
-                for (int i = 0; i < len; i++) {
-                    longestWord[i] = str[i];
-                }
-            }
-
-            if (c != '.') {
-                len = 0;
-                str[len] = c;
-                len++;
-            }
-
+        if (highestValue == 0) {
+            printf("No film made less than %.0f\n", maxGross[i]);
+        } else {
+            printf("The highest gross less than %.0f is %0.f at %s\n", maxGross[i], highestValue, names[highestValueIndex]);
         }
 
-    } while (c != '.');
-
-    /* Print the average word length */
-    printf("The average word length is %.2f\n", (double) sumLength / wordCount);
-
-    /* Print the longest word length */
-    printf("the longest word length is %d\n", longestLength);
-
-    /* Print the longest word */
-    printf("the longest word is %s\n", longestWord);
-
+    }
 }

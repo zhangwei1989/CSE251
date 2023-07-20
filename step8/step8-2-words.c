@@ -3,8 +3,6 @@
 #include <stdbool.h>
 #include <stdlib.h>
 
-#include <stdio.h>
-
 /*
  * Name : <Zhang Wei>
  * Program to experiment with character arrays
@@ -35,15 +33,31 @@ int main ()
         }
         else
         {
+            while (c == ' ') {
+                c=getchar();
+            }
+
+            /*if (c == '.') {
+
+                break;
+            } else {
+                str[len] = 0;
+                printf("%s\n", str);
+
+            }*/
+
             /* The word is done */
             str[len] = 0;
             printf("%s\n", str);
-            len = 0;
+
+            if (c != '.') {
+                len = 0;
+                str[len] = c;
+                len++;
+            }
+
         }
 
     } while (c != '.');
-
-    str[len] = 0;
-    printf("%s\n", str);
 
 }

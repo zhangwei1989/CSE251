@@ -14,6 +14,10 @@ int main ()
 {
     char c;
     char str[MaxWord+1];
+    char longestWord[MaxWord+1];
+    int sumLength = 0;
+    int wordCount = 0;
+    int longestLength = 0;
     int len = 0;
 
     puts ("Enter text. Include a dot ('.') to end a sentence to exit:");
@@ -50,6 +54,17 @@ int main ()
             str[len] = 0;
             printf("%s\n", str);
 
+            /* Compute The relative length of  words */
+            sumLength += len;
+            wordCount++;
+
+            if (len > longestLength) {
+                longestLength = len;
+                for (int i = 0; i < len; i++) {
+                    longestWord[i] = str[i];
+                }
+            }
+
             if (c != '.') {
                 len = 0;
                 str[len] = c;
@@ -59,5 +74,14 @@ int main ()
         }
 
     } while (c != '.');
+
+    /* Print the average word length */
+    printf("The average word length is %.2f\n", (double) sumLength / wordCount);
+
+    /* Print the longest word length */
+    printf("the longest word length is %d\n", longestLength);
+
+    /* Print the longest word */
+    printf("the longest word is %s\n", longestWord);
 
 }

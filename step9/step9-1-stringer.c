@@ -8,7 +8,6 @@
 /*
  * Name : <Zhang Wei>
  * Program to experiment with strings
- * @TODO To figure out why sentence needn't to be typed.
  */
 
 int StringLength(char str[]);
@@ -25,6 +24,8 @@ int main()
     scanf("%79s", myWord);
     myWord[79] = '\0';
     printf("The entered word is: %s\n", myWord);
+
+    while ((getchar()) != '\n');
 
     printf("Enter a sentence: ");
     fgets(mySentence, 80, stdin);
